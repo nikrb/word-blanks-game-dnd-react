@@ -4,7 +4,13 @@ import Draggable from './Draggable';
 import Droppable from './Droppable';
 import { getSentence, getAnswers } from './TextConverter';
 
-import { AppContainer, WordWrapper, WordBox } from './styled';
+import {
+  AppContainer,
+  Block,
+  PrimaryButton,
+  WordBox,
+  WordWrapper,
+} from './styled';
 
 /*
 sentence:[
@@ -89,24 +95,26 @@ class App extends React.Component {
         name={a} bgcolor="lightgreen" />
     ));
     return (
-      <AppContainer className="container-drag">
+      <AppContainer>
         <h2 className="header">Word Game</h2>
         <div>
-          <button onClick={this.test}>Test</button>
-          {this.renderResult(this.state.result)}
+          <PrimaryButton onClick={this.test}>Test</PrimaryButton>
         </div>
         <div>
-          <span>Fill in the blanks with the words below</span>
+          {this.renderResult(this.state.result)}
+        </div>
+        <Block>
+          Fill in the blanks with the words below
           <WordWrapper>
             {sentence}
           </WordWrapper>
-        </div>
-        <div>
-          <span>Answers</span>
+        </Block>
+        <Block>
+          Answers
           <WordWrapper>
             {answers}
           </WordWrapper>
-        </div>
+        </Block>
       </AppContainer>
     );
   }

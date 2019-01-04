@@ -6,6 +6,10 @@ export const AppContainer = styled.div`
   align-items: center;
 `;
 
+export const Block = styled.div`
+  margin: 1em auto;
+`;
+
 export const WordBox = styled.div`
   background-color: ${props => props.bgcolor || 'white'};
   margin: 0.5em;
@@ -18,4 +22,15 @@ export const WordBox = styled.div`
 export const WordWrapper = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+
+export const PrimaryButton = styled.button`
+  color: #fff;
+  background-color: #6c6;
+  border-radius: 5px;
+  border-color: #5b5;
+  margin: 0;
+  padding: 0.4em 0.8em;
+  line-height: 1.5em;
 `;

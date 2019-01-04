@@ -2,6 +2,7 @@ import React from 'react';
 
 import Draggable from './Draggable';
 import Droppable from './Droppable';
+import Results from './Results';
 import { getSentence, getAnswers } from './TextConverter';
 
 import {
@@ -23,7 +24,7 @@ const text = 'The <brown> fox <jumped> over the <dog>';
 
 class App extends React.Component {
   state = {
-    result: [],
+    show_results: false,
     answers: getAnswers(text),
     sentence: getSentence(text),
   };
@@ -47,36 +48,18 @@ class App extends React.Component {
   }
 
   test = () => {
-    const result = this.state.sentence.reduce((acc, cur) => {
-      if (cur.type === 'answer') {
-        let s = `word [${cur.text}] `;
-        if (!cur.placed) {
-          s += 'has not been placed';
-        } else {
-          if (cur.text === cur.displayed) {
-            s += 'correct!';
-          } else {
-            s += 'has not been placed correctly';
-          }
-        }
-        return acc.concat(s);
-      }
-      return acc;
-    }, []);
-    console.log('result:', result);
-    this.setState({ result });
+    this.setState({ show_results: true })
   };
   renderResult(result) {
     return result.map((s,i) => (<p key={i}>{s}</p>));
   }
 
   render() {
-    const { result } = this.state;
+    const { show_results } = this.state;
     const sentence = this.state.sentence.map((w, i) => {
       if (w.type === 'word') {
         return (<WordBox key={i}>{w.text}</WordBox>);
       }
-      const show_results = result.length > 0;
       let bgcolor;
       if (show_results) {
         bgcolor = w.text === w.displayed ? 'lightgreen' : '#F77';
@@ -100,9 +83,7 @@ class App extends React.Component {
         <div>
           <PrimaryButton onClick={this.test}>Test</PrimaryButton>
         </div>
-        <div>
-          {this.renderResult(this.state.result)}
-        </div>
+        {show_results && <Results data={this.state.sentence} /> }
         <Block>
           Fill in the blanks with the words below
           <WordWrapper>

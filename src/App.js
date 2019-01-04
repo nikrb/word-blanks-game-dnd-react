@@ -16,47 +16,69 @@ sentence:[
 const text = 'The <brown> fox <jumped> over the <dog>';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      answers: getAnswers(text),
-      sentence: getSentence(text),
-    };
-  }
+  state = {
+    result: [],
+    answers: getAnswers(text),
+    sentence: getSentence(text),
+  };
 
   onDragStart = (ev, id) => {
     console.log('dragstart:',id);
     ev.dataTransfer.setData("text/plain", id);
   }
 
-  onDragOver = (ev) => {
-    ev.preventDefault();
-  }
-
-  onDrop = (ev, id) => {
+  onDrop = (ev, drop_id) => {
     const text = ev.dataTransfer.getData("text/plain");
-    console.log('drop id:', id);
     // ev.target.textContent = id;
 
     const sentence = this.state.sentence.map(w => {
-      if (w.id === id && !w.placed) {
-        w.displayed = text;
-        w.placed = true;
+      if (w.id === drop_id && !w.placed) {
+        return { ...w, placed: true, displayed: text};
       }
       return w;
     });
     this.setState({ sentence });
   }
 
+  test = () => {
+    const result = this.state.sentence.reduce((acc, cur) => {
+      if (cur.type === 'answer') {
+        let s = `word [${cur.text}] `;
+        if (!cur.placed) {
+          s += 'has not been placed';
+        } else {
+          if (cur.text === cur.displayed) {
+            s += 'correct!';
+          } else {
+            s += 'has not been placed correctly';
+          }
+        }
+        return acc.concat(s);
+      }
+      return acc;
+    }, []);
+    console.log('result:', result);
+    this.setState({ result });
+  };
+  renderResult(result) {
+    return result.map((s,i) => (<p key={i}>{s}</p>));
+  }
+
   render() {
+    const { result } = this.state;
     const sentence = this.state.sentence.map((w, i) => {
       if (w.type === 'word') {
         return (<WordBox key={i}>{w.text}</WordBox>);
       }
+      const show_results = result.length > 0;
+      let bgcolor;
+      if (show_results) {
+        bgcolor = w.text === w.displayed ? 'lightgreen' : '#F77';
+      }
       return (
         <Droppable key={i}
+          bgcolor={bgcolor}
           groupName={w.id}
-          onDragOver={this.onDragOver}
           onDrop={this.onDrop}>
           {w.placed ? w.displayed : ' '}
         </Droppable>
@@ -69,6 +91,10 @@ class App extends React.Component {
     return (
       <AppContainer className="container-drag">
         <h2 className="header">Word Game</h2>
+        <div>
+          <button onClick={this.test}>Test</button>
+          {this.renderResult(this.state.result)}
+        </div>
         <div>
           <span>Fill in the blanks with the words below</span>
           <WordWrapper>

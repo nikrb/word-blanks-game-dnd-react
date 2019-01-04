@@ -38,4 +38,8 @@ describe('text processing', () => {
     expect(a.length).toBe(3);
     expect(a).toEqual(['brown', 'jumped', 'dog']);
   });
+  it('should return unique answer list', () => {
+    const s = '<The> good, <the> bad and <the> ugly';
+    expect(getAnswers(s)).toEqual(['The', 'the'])
+  });
 });

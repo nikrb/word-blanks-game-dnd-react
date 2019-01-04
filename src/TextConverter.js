@@ -1,11 +1,11 @@
 
 export const getSentence = text => {
-  return text.split(' ').map(w => {
+  return text.split(' ').map((w, id) => {
     if (w.startsWith('<')) {
       const m = w.match(/[a-z-A-Z]+/);
-      return { text: m[0], type: 'answer', placed: false};
+      return { id, text: m[0], type: 'answer', placed: false, displayed: ''};
     }
-    return { text: w, type: 'word' };
+    return { id, text: w, type: 'word' };
   });
 };
 export const getAnswers = text => {

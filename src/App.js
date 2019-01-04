@@ -8,8 +8,8 @@ import { AppContainer, WordWrapper, WordBox } from './styled';
 
 /*
 sentence:[
-  { text: 'The', type: 'word'},
-  { text: 'brown', type: 'answer', placed: false },
+  { id: 1, text: 'The', type: 'word'},
+  { id: 2, text: 'brown', type: 'answer', placed: false, display: '' },
 ]
  */
 
@@ -33,13 +33,14 @@ class App extends React.Component {
     ev.preventDefault();
   }
 
-  onDrop = (ev, cat) => {
+  onDrop = (ev, id) => {
     const text = ev.dataTransfer.getData("text/plain");
-
+    console.log('drop id:', id);
     // ev.target.textContent = id;
 
     const sentence = this.state.sentence.map(w => {
-      if (w.text === text && !w.placed) {
+      if (w.id === id && !w.placed) {
+        w.displayed = text;
         w.placed = true;
       }
       return w;
@@ -54,10 +55,10 @@ class App extends React.Component {
       }
       return (
         <Droppable key={i}
-          groupName="wip"
+          groupName={w.id}
           onDragOver={this.onDragOver}
           onDrop={this.onDrop}>
-          {w.placed ? w.text : ' '}
+          {w.placed ? w.displayed : ' '}
         </Droppable>
       );
     });

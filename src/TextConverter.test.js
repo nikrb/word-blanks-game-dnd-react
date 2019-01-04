@@ -3,20 +3,20 @@ import { getSentence, getAnswers } from './TextConverter';
 describe('text processing', () => {
   const test = "The <brown> fox";
   const test_sentence = [
-    { text: "The", type: "word" },
-    { text: "brown", type: "answer", placed: false },
-    { text: "fox", type: "word" },
+    { id: 0, text: "The", type: "word" },
+    { id: 1, text: "brown", type: "answer", placed: false, displayed: '' },
+    { id: 2, text: "fox", type: "word" },
   ];
   const test2 = "The quick <brown> fox <jumped> over the <dog>";
   const test2_sentence = [
-    { text: "The", type: "word" },
-    { text: "quick", type: "word" },
-    { text: "brown", type: "answer", placed: false },
-    { text: "fox", type: "word" },
-    { text: "jumped", type: "answer", placed: false },
-    { text: "over", type: "word" },
-    { text: "the", type: "word" },
-    { text: "dog", type: "answer", placed: false },
+    { id: 0, text: "The", type: "word" },
+    { id: 1, text: "quick", type: "word" },
+    { id: 2, text: "brown", type: "answer", placed: false, displayed: '' },
+    { id: 3, text: "fox", type: "word" },
+    { id: 4, text: "jumped", type: "answer", placed: false, displayed: '' },
+    { id: 5, text: "over", type: "word" },
+    { id: 6, text: "the", type: "word" },
+    { id: 7, text: "dog", type: "answer", placed: false, displayed: '' },
   ];
   it('should get sentence', () => {
     const s = getSentence(test);

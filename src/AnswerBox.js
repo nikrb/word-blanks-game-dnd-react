@@ -13,7 +13,7 @@ class AnswerBox extends React.Component {
   render () {
     const answers = this.props.answers.map(a => (
       <Draggable key={a} onDragStart={this.onDragStart}
-        name={a} />
+        name={a} bgcolor="rgba(255,255,255,0)"/>
     ));
     return (
       <Block>

@@ -11,7 +11,7 @@ export const Block = styled.div`
 `;
 
 export const WordBox = styled.div`
-  background-color: ${props => props.bgcolor || 'rgba(255,255,255,0)'};
+  background-color: ${props => props.bgcolor || 'white'};
   margin: 0.5em;
   padding: 0.25em 0.5em;
   cursor: pointer;

@@ -28,7 +28,7 @@ class App extends React.Component {
     // ev.target.textContent = id;
 
     const sentence = this.state.sentence.map(w => {
-      if (w.id === drop_id && !w.placed) {
+      if (w.id === drop_id) {
         return { ...w, placed: true, displayed: text};
       }
       return w;

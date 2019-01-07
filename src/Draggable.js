@@ -10,6 +10,7 @@ class Draggable extends React.Component {
     const { name, bgcolor } = this.props;
     return (
       <WordBox
+        data-testid="answer"
         onDragStart={this.onDragStart.bind(this)}
         draggable="true"
         bgcolor={bgcolor}

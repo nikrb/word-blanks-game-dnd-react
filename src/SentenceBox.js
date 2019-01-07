@@ -20,6 +20,7 @@ class SentenceBox extends React.Component {
       }
       return (
         <Droppable key={i}
+          ndx={i}
           bgcolor={bgcolor}
           groupName={w.id}
           onDrop={this.onDrop}>

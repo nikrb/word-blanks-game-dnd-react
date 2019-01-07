@@ -23,7 +23,7 @@ class App extends React.Component {
     sentence: getSentence(text),
   };
 
-  onDrop = (ev, drop_id) => {
+  onDrop(ev, drop_id) {
     const text = ev.dataTransfer.getData("text/plain");
     // ev.target.textContent = id;
 
@@ -50,7 +50,7 @@ class App extends React.Component {
         </div>
         <SentenceBox
           sentence={this.state.sentence}
-          onDrop={this.onDrop}
+          onDrop={this.onDrop.bind(this)}
           marked={show_results}
         />
         <AnswerBox answers={this.state.answers} />

@@ -20,9 +20,11 @@ export default class Droppable extends React.Component {
     this.setState({ bgcolor: 'white' });
   }
   render() {
-    const { bgcolor } = this.props;
+    const { bgcolor, ndx } = this.props;
     return (
-      <WordBox bgcolor={bgcolor ? bgcolor : this.state.bgcolor}
+      <WordBox
+        data-testid={`droppable${ndx}`}
+        bgcolor={bgcolor ? bgcolor : this.state.bgcolor}
         onDragOver={this.onDragOver.bind(this)}
         onDragLeave={this.onDragLeave.bind(this)}
         onDrop={this.onDrop.bind(this)}>

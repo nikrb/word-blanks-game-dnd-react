@@ -6,8 +6,11 @@ import { Block, WordWrapper } from './styled';
 
 class AnswerBox extends React.Component {
 
-  onDragStart(ev, id) {
-    ev.dataTransfer.setData("text/plain", id);
+  onDragStart(e, id) {
+    // prevent stack trace on test
+    if (e.dataTransfer) {
+      e.dataTransfer.setData("text/plain", id);
+    }
   };
 
   render () {

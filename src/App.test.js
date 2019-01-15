@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import TestUtils from 'react-dom/test-utils';
 import { cleanup, fireEvent, getNodeText, render } from 'react-testing-library';
 import 'jest-dom/extend-expect';
 import 'jest-styled-components';
@@ -33,15 +34,15 @@ it('should not mark drop zones as draggable', () => {
     expect(z.getAttribute('draggable')).toBeFalsy();
   });
 });
-xit('should set dataTransfer with correct types and items', () => {
-  const { getByTestId } = render(<App/>);
+it('should call setData on dataTransfer with correct text', () => {
+  const { getByTestId } = render(<App />);
+  const mockdt = { setData: jest.fn() };
   const answer = getByTestId('answer');
   expect(answer).toBeDefined();
   expect(getNodeText(answer)).toBe('brown');
-  const mockDataTransfer = { setData: jest.fn()};
-  fireEvent.dragStart(answer, { dataTransfer: mockDataTransfer });
-  expect(mockDataTransfer.setData).toBeCalled();
-  // expect(mockDataTransfer.setData).toBeCalledWith('text/plain', 'brown');
+  TestUtils.Simulate.dragStart(answer, { dataTransfer: mockdt });
+  expect(mockdt.setData).toBeCalled();
+  expect(mockdt.setData).toBeCalledWith('text/plain', 'brown');
 });
 
 it('should highlight dropzone on drag over', async () => {
@@ -56,25 +57,21 @@ it('should highlight dropzone on drag over', async () => {
   };
   fireEvent.dragOver(dz, mockEvent);
   expect(dz).toHaveStyle('background-color: yellow');
-  // FIXME: why isn't is called?
+  // FIXME: doesn't get called?!
   // expect(mockEvent.preventDefault).toBeCalled();
 })
 
-xit('should place answer in dropzone on drop', async () => {
+it('should place answer in dropzone on drop', async () => {
   const { getByTestId } = render(<App/>);
   const dz = getByTestId('droppable1');
   expect(dz).toBeDefined();
   const mockEvent = { dataTransfer: { types: ['text/plain'] } };
-  // mockEvent.dataTransfer.getData = function() { return '"brown"'; };
-
-  Object.defineProperty(mockEvent.dataTransfer, 'getData', {
-    value: function(type) { return 'brown'; }
-  });
+  mockEvent.dataTransfer.getData = function() { return '\"brown\"'; };
 
   fireEvent.dragOver(dz, mockEvent);
   expect(dz).toHaveStyle('background-color: yellow');
-  fireEvent.drop(dz, mockEvent);
+  TestUtils.Simulate.drop(dz, mockEvent);
   expect(dz).toHaveStyle('background-color: white');
-  expect(getNodeText(dz)).toBe('brown');
-  // expect(dz).toHaveStyle('background-color: rgba(255,255,255,0)');
+  expect(getNodeText(dz)).toBe('\"brown\"');
 });
+

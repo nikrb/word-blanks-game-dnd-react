@@ -10,6 +10,15 @@ export const Block = styled.div`
   margin: 1em auto;
 `;
 
+export const FormRow = styled.div`
+  margin: 0.5em;
+  padding: 0.5em;
+`;
+
+export const FormInput = styled.input`
+  margin: 0.5em;
+`;
+
 export const WordBox = styled.div`
   background-color: ${props => props.bgcolor || 'white'};
   margin: 0.5em;

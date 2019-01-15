@@ -1,5 +1,6 @@
 import React from 'react';
 
+import QuestionBox from './QuestionBox';
 import SentenceBox from './SentenceBox';
 import AnswerBox from './AnswerBox';
 import Results from './Results';
@@ -19,6 +20,7 @@ const text = 'The <brown> fox <jumped> over the <dog>';
 class App extends React.Component {
   state = {
     show_results: false,
+    question: "",
     answers: getAnswers(text),
     sentence: getSentence(text),
   };
@@ -35,6 +37,17 @@ class App extends React.Component {
     });
     this.setState({ sentence });
   };
+  onStart() {
+    console.log('starting with question:', this.state.question);
+    this.setState({
+      question: "",
+      answers: getAnswers(this.state.question),
+      sentence: getSentence(this.state.question),
+    });
+  }
+  questionChange(e) {
+    this.setState({question: e.target.value});
+  }
 
   test = () => {
     this.setState({ show_results: !this.state.show_results });
@@ -45,6 +58,10 @@ class App extends React.Component {
     return (
       <AppContainer>
         <h2 className="header">Word Game</h2>
+        <QuestionBox
+          questionChange={this.questionChange.bind(this)}
+          onStart={this.onStart.bind(this)}
+        />
         <div>
           <PrimaryButton onClick={this.test}>Test</PrimaryButton>
         </div>

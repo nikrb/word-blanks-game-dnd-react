@@ -17,6 +17,7 @@ export const FormRow = styled.div`
 
 export const FormInput = styled.input`
   margin: 0.5em;
+  line-height: 1.5em;
 `;
 
 export const WordBox = styled.div`

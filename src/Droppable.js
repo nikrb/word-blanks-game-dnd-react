@@ -5,9 +5,9 @@ import { WordBox } from './styled';
 
 export default class Droppable extends React.Component {
   static propTypes = {
-    bgcolor: PropTypes.string.isRequired,
-    children: PropTypes.object.isRequired,
-    groupName: PropTypes.string.isRequired,
+    bgcolor: PropTypes.string,
+    children: PropTypes.string.isRequired,
+    groupName: PropTypes.number.isRequired,
     ndx: PropTypes.number.isRequired,
     onDrop: PropTypes.func.isRequired,
   };

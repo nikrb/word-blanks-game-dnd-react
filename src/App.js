@@ -38,7 +38,6 @@ class App extends React.Component {
     this.setState({ sentence });
   };
   onStart() {
-    console.log('starting with question:', this.state.question);
     this.setState({
       question: "",
       answers: getAnswers(this.state.question),

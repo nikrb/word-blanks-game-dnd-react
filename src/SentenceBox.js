@@ -12,7 +12,7 @@ class SentenceBox extends React.Component {
     const { marked } = this.props;
     const sentence = this.props.sentence.map((w, i) => {
       if (w.type === 'word') {
-        return (<WordBox key={i}>{w.text}</WordBox>);
+        return (<WordBox data-testid={'word'} key={i}>{w.text}</WordBox>);
       }
       let bgcolor;
       if (marked) {

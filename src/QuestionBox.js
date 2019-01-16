@@ -8,7 +8,7 @@ export default class QuestionBox extends React.Component {
     return (
       <Block>
         <FormRow>
-          <FormInput onChange={questionChange} />
+          <FormInput data-testid="question-input" onChange={questionChange} />
           <PrimaryButton onClick={onStart}>Start</PrimaryButton>
         </FormRow>
       </Block>

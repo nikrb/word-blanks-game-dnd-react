@@ -1,7 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
-import { cleanup, fireEvent, getNodeText, render, waitForElement } from 'react-testing-library';
+import {
+  cleanup,
+  fireEvent,
+  getNodeText,
+  render,
+  waitForElement
+} from 'react-testing-library';
 import 'jest-dom/extend-expect';
 import 'jest-styled-components';
 
@@ -24,7 +30,7 @@ describe('Answers', () => {
     expect(answer.length).toBe(3);
     answer.forEach(a => {
       expect(a).toHaveAttribute('draggable');
-    })
+    });
   });
   it('should not mark drop zones as draggable', () => {
     const { getAllByTestId } = render(<App/>);
@@ -46,7 +52,7 @@ describe('Answers', () => {
     expect(mockdt.setData).toBeCalledWith('text/plain', 'brown');
   });
 
-  it('should highlight dropzone on drag over', async () => {
+  it('should highlight dropzone on drag over', () => {
     const { getByTestId } = render(<App/>);
     const dz = getByTestId('droppable1');
     expect(dz).toBeDefined();
@@ -60,9 +66,9 @@ describe('Answers', () => {
     expect(dz).toHaveStyle('background-color: yellow');
     // FIXME: doesn't get called?!
     // expect(mockEvent.preventDefault).toBeCalled();
-  })
+  });
 
-  it('should place answer in dropzone on drop', async () => {
+  it('should place answer in dropzone on drop', () => {
     const { getByTestId } = render(<App/>);
     const dz = getByTestId('droppable1');
     expect(dz).toBeDefined();
@@ -78,10 +84,12 @@ describe('Answers', () => {
 });
 
 describe('QuestionBox', () => {
-  it('should start the game with the entered question when start is pressed', async () => {
-    const { getByTestId, getByText, getAllByTestId, debug } = render(<App/>);
+  it('should start the game with the entered question when start is pressed',
+    async() => {
+    const mockEvent = { target: { value: 'The <owl> and the <pussycat>' }};
+    const { getByTestId, getByText, getAllByTestId } = render(<App/>);
     const question = getByTestId('question-input');
-    fireEvent.change(question, { target: { value: 'The <owl> and the <pussycat>' }});
+    fireEvent.change(question, mockEvent);
     expect(question.value).toBe('The <owl> and the <pussycat>');
     fireEvent.click(getByText('Start'));
     await waitForElement(() => getByTestId('word'));

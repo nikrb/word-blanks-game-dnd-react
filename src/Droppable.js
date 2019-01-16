@@ -1,8 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { WordBox } from './styled';
 
 export default class Droppable extends React.Component {
+  static propTypes = {
+    bgcolor: PropTypes.string.isRequired,
+    children: PropTypes.object.isRequired,
+    groupName: PropTypes.string.isRequired,
+    ndx: PropTypes.number.isRequired,
+    onDrop: PropTypes.func.isRequired,
+  };
   state = {
     bgcolor: 'white'
   };
@@ -23,13 +31,13 @@ export default class Droppable extends React.Component {
     const { bgcolor, ndx } = this.props;
     return (
       <WordBox
-        data-testid={`droppable${ndx}`}
         bgcolor={bgcolor ? bgcolor : this.state.bgcolor}
-        onDragOver={this.onDragOver.bind(this)}
+        data-testid={`droppable${ndx}`}
         onDragLeave={this.onDragLeave.bind(this)}
+        onDragOver={this.onDragOver.bind(this)}
         onDrop={this.onDrop.bind(this)}>
         {this.props.children}
       </WordBox>
     );
-  };
-};
+  }
+}

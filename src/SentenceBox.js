@@ -1,14 +1,20 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import Droppable from './Droppable';
 
 import { Block, WordBox, WordWrapper } from './styled';
 
 class SentenceBox extends React.Component {
+  static propTypes = {
+    marked: PropTypes.bool.isRequired,
+    onDrop: PropTypes.func.isRequired,
+    sentence: PropTypes.array.isRequired,
+  };
   onDrop = (e, id) => {
     this.props.onDrop(e, id);
   };
-  render () {
+  render() {
     const { marked } = this.props;
     const sentence = this.props.sentence.map((w, i) => {
       if (w.type === 'word') {
@@ -19,11 +25,13 @@ class SentenceBox extends React.Component {
         bgcolor = w.text === w.displayed ? 'lightgreen' : '#F77';
       }
       return (
-        <Droppable key={i}
-          ndx={i}
+        <Droppable
           bgcolor={bgcolor}
           groupName={w.id}
-          onDrop={this.onDrop}>
+          key={i}
+          ndx={i}
+          onDrop={this.onDrop}
+        >
           {w.placed ? w.displayed : ' '}
         </Droppable>
       );

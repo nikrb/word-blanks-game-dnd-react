@@ -19,27 +19,27 @@ const text = 'The <brown> fox <jumped> over the <dog>';
 
 class App extends React.Component {
   state = {
-    show_results: false,
-    question: "",
+    showResults: false,
+    question: '',
     answers: getAnswers(text),
     sentence: getSentence(text),
   };
 
-  onDrop(ev, drop_id) {
-    const text = ev.dataTransfer.getData("text/plain");
+  onDrop(ev, dropId) {
+    const text = ev.dataTransfer.getData('text/plain');
     // ev.target.textContent = id;
 
     const sentence = this.state.sentence.map(w => {
-      if (w.id === drop_id) {
+      if (w.id === dropId) {
         return { ...w, placed: true, displayed: text};
       }
       return w;
     });
     this.setState({ sentence });
-  };
+  }
   onStart() {
     this.setState({
-      question: "",
+      question: '',
       answers: getAnswers(this.state.question),
       sentence: getSentence(this.state.question),
     });
@@ -49,28 +49,28 @@ class App extends React.Component {
   }
 
   test = () => {
-    this.setState({ show_results: !this.state.show_results });
+    this.setState({ showResults: !this.state.showResults });
   };
 
   render() {
-    const { show_results } = this.state;
+    const { showResults } = this.state;
     return (
       <AppContainer>
-        <h2 className="header">Word Game</h2>
+        <h2 className='header'>Word Game</h2>
         <QuestionBox
-          questionChange={this.questionChange.bind(this)}
           onStart={this.onStart.bind(this)}
+          questionChange={this.questionChange.bind(this)}
         />
         <div>
           <PrimaryButton onClick={this.test}>Test</PrimaryButton>
         </div>
         <SentenceBox
-          sentence={this.state.sentence}
+          marked={showResults}
           onDrop={this.onDrop.bind(this)}
-          marked={show_results}
+          sentence={this.state.sentence}
         />
         <AnswerBox answers={this.state.answers} />
-        {show_results && <Results data={this.state.sentence} /> }
+        {showResults && <Results data={this.state.sentence} /> }
       </AppContainer>
     );
   }

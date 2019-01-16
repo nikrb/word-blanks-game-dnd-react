@@ -9,8 +9,8 @@ export const getSentence = text => {
   });
 };
 export const getAnswers = text => {
-   const word_list = Array.from( new Set(text.split(' ')));
-   return word_list.reduce((acc, cur) => {
+   const wordList = Array.from( new Set(text.split(' ')));
+   return wordList.reduce((acc, cur) => {
     if (cur.startsWith('<')) {
       const m = cur.match(/[a-z-A-Z]+/);
       return acc.concat(m[0]);

@@ -1,8 +1,13 @@
 {
     "env": {
+      "jest": true,
       "es6": true,
       "mocha": true,
       "node": true
     },
-    "extends": "eslint-config-freecodecamp"
+    "extends": "eslint-config-freecodecamp",
+    "rules": {
+      "comma-dangle": 0,
+      "react/jsx-closing-bracket-location": 0
+    }
 }

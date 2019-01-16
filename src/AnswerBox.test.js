@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import { cleanup, fireEvent, getNodeText, render } from 'react-testing-library';
+import { cleanup, getNodeText, render } from 'react-testing-library';
 import 'jest-styled-components';
 
 import AnswerBox from './AnswerBox';
@@ -14,7 +14,6 @@ it('should mark answers as draggable', () => {
 });
 
 it('should start drag', () => {
-  // var container = TestUtils.renderIntoDocument(<AnswerBox answers={['brown']} />);
   const { getByTestId } = render(<AnswerBox answers={['brown']} />);
   const mockdt = { setData: jest.fn() };
   const answer = getByTestId('answer');
